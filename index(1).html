@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Eco-School | UAE</title>
+<style>
+:root{
+  --green:#167a52; --green2:#20a66b; --mint:#eaf8f0; --dark:#12342b;
+  --sun:#f7b928; --sky:#eaf7ff; --white:#fff; --muted:#5d7069;
+  --shadow:0 10px 30px rgba(18,52,43,.10);
+}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--dark);background:#f7fbf9;line-height:1.6}
+nav{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:space-between;padding:14px 6%;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.logo{font-weight:800;color:var(--green);font-size:1.15rem}
+nav a{color:var(--dark);text-decoration:none;margin-left:18px;font-weight:700;font-size:.92rem}
+.hero{padding:80px 7% 70px;background:linear-gradient(135deg,#eaf8f0 0%,#f7fbf9 55%,#fff7dc 100%);display:grid;grid-template-columns:1.2fr .8fr;gap:35px;align-items:center}
+.badge{display:inline-block;background:#d9f2e4;color:var(--green);padding:7px 13px;border-radius:999px;font-weight:800;font-size:.82rem}
+h1{font-size:clamp(2.4rem,6vw,5rem);line-height:1.02;margin:18px 0}
+h2{font-size:2rem;margin-top:0}
+.hero p{font-size:1.12rem;max-width:680px;color:var(--muted)}
+.hero-card{background:var(--white);border-radius:28px;padding:25px;box-shadow:var(--shadow);border:1px solid #dcefe4}
+.school{height:250px;border-radius:20px;background:linear-gradient(#8bd1f4 0 42%,#8cc96c 42%);position:relative;overflow:hidden}
+.building{position:absolute;left:18%;bottom:18%;width:64%;height:43%;background:#fff;border:5px solid var(--green);border-radius:8px}
+.roof{position:absolute;left:12%;top:-35px;width:76%;height:70px;background:#ddd;border:5px solid #777;transform:skewX(-25deg);border-radius:7px}
+.panel{position:absolute;left:39%;top:7px;width:24%;height:45px;background:#254e68;border:4px solid #fff;transform:skewX(-25deg)}
+.tree{position:absolute;bottom:12%;width:55px;height:85px}
+.tree:before{content:"";position:absolute;bottom:0;left:23px;width:10px;height:48px;background:#7a5634}
+.tree:after{content:"";position:absolute;top:0;left:0;width:55px;height:55px;background:#1c8c58;border-radius:50%}
+.tree.t1{left:5%}.tree.t2{right:5%}
+section{padding:70px 7%}
+.section-intro{max-width:750px;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin-top:28px}
+.card{background:white;border-radius:20px;padding:24px;box-shadow:var(--shadow);border:1px solid #e1eee7}
+.icon{font-size:2rem}
+.card h3{margin:10px 0 5px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:start}
+.panelbox{background:white;padding:28px;border-radius:22px;box-shadow:var(--shadow)}
+.action{display:flex;gap:14px;align-items:flex-start;margin:16px 0}
+.action input{width:22px;height:22px;accent-color:var(--green)}
+.calculator{background:linear-gradient(135deg,#12342b,#176746);color:white;border-radius:28px;padding:34px;box-shadow:var(--shadow)}
+.calculator label{display:block;font-weight:700;margin-top:15px}
+.calculator input{width:100%;padding:13px;border-radius:10px;border:0;margin-top:7px;font-size:1rem}
+.btn{border:0;background:var(--sun);color:#332600;padding:13px 20px;border-radius:12px;font-weight:800;cursor:pointer;margin-top:20px}
+.result{margin-top:25px;background:rgba(255,255,255,.12);border-radius:18px;padding:20px}
+.result strong{font-size:2rem;color:#ffe18a}
+.features{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.feature{padding:22px;border-radius:18px;background:var(--mint);border-left:6px solid var(--green)}
+footer{padding:35px 7%;background:#0d2a22;color:#d9eee5;text-align:center}
+.small{font-size:.9rem;color:var(--muted)}
+@media(max-width:800px){
+  .hero,.split,.features{grid-template-columns:1fr}
+  nav{flex-wrap:wrap;gap:10px} nav div:last-child{width:100%;display:flex;overflow:auto;padding-bottom:3px}
+  nav a{margin:0 15px 0 0;white-space:nowrap}
+}
+
+/* Sign-in + Founder */
+#signinPage{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(135deg,#eaf8f0,#fff7dc);overflow:auto}
+.signin-card{width:min(520px,100%);background:#fff;border-radius:28px;padding:34px;box-shadow:0 20px 60px rgba(18,52,43,.18);border:1px solid #dcefe4}
+.signin-card h2{margin-bottom:8px}.signin-card p{color:var(--muted)}
+.signin-card label{display:block;font-weight:700;margin-top:15px}.signin-card input,.signin-card select{width:100%;padding:13px;border:1px solid #cfe3d8;border-radius:10px;margin-top:7px;font-size:1rem;background:#fff}
+.user-welcome{background:#eaf8f0;border-left:5px solid var(--green);padding:12px 16px;border-radius:12px;margin:14px 0;font-weight:700}
+.founder{background:linear-gradient(135deg,#eaf8f0,#fff);border:1px solid #dcefe4;border-radius:24px;padding:32px;box-shadow:var(--shadow)}
+.founder-badge{width:86px;height:86px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--green);color:#fff;font-size:2.2rem;font-weight:800;margin-bottom:18px}
+body.locked{overflow:hidden}
+</style>
+</head>
+<body class="locked">
+<div id="signinPage">
+  <div class="signin-card">
+    <span class="badge">🌱 SMART ECO-SCHOOL</span>
+    <h2>Welcome to Smart Eco-School</h2>
+    <p>Enter your details to personalize the website. Your details are only displayed on this device.</p>
+    <form id="signinForm">
+      <label for="studentName">Name</label>
+      <input id="studentName" type="text" placeholder="Enter your name" required maxlength="60">
+      <label for="studentClass">Class</label>
+      <input id="studentClass" type="text" placeholder="e.g. 6" required maxlength="10">
+      <label for="studentSection">Section</label>
+      <input id="studentSection" type="text" placeholder="e.g. K" required maxlength="10">
+      <button class="btn" type="submit">Enter Smart Eco-School →</button>
+    </form>
+  </div>
+</div>
+
+<nav>
+  <div class="logo">🌱 SMART ECO-SCHOOL</div>
+  <div>
+    <a href="#problem">Problem</a>
+    <a href="#solution">Solution</a>
+    <a href="#calculator">Calculator</a><a href="#games">Games</a>
+    <a href="#action">Take Action</a>
+    <a href="#founder">Founder</a>
+  </div>
+</nav>
+
+<div id="userWelcome" class="user-welcome" style="display:none;margin:18px 7% 0"></div>
+
+<header class="hero">
+  <div>
+    <span class="badge">UAE ENVIRONMENT PROJECT</span>
+    <h1>A cooler school can be a smarter school.</h1>
+    <p>Smart Eco-School is a student-designed idea for reducing the heat entering school buildings and cutting unnecessary energy use — while keeping learning spaces comfortable.</p>
+    <a class="btn" href="#solution" style="display:inline-block;text-decoration:none">Explore the idea</a>
+  </div>
+  <div class="hero-card">
+    <div class="school">
+      <div class="tree t1"></div><div class="tree t2"></div>
+      <div class="building"><div class="roof"></div><div class="panel"></div></div>
+    </div>
+    <p class="small"><b>Our model:</b> reflective roof + shade + ventilation + daylight + renewable energy.</p>
+  </div>
+</header>
+
+<section id="problem">
+  <h2>The Problem</h2>
+  <p class="section-intro">The UAE has a hot climate, so keeping indoor spaces comfortable can require substantial cooling. Every time a school reduces the amount of heat entering a classroom, it can potentially reduce the work required from air-conditioning systems.</p>
+  <div class="cards">
+    <div class="card"><div class="icon">☀️</div><h3>Strong sunlight</h3><p>Roofs, walls and windows can receive intense solar heat.</p></div>
+    <div class="card"><div class="icon">❄️</div><h3>Cooling demand</h3><p>Air conditioning helps maintain comfortable learning spaces.</p></div>
+    <div class="card"><div class="icon">⚡</div><h3>Energy use</h3><p>Cooling is one part of a school's overall electricity demand.</p></div>
+    <div class="card"><div class="icon">🌍</div><h3>Why it matters</h3><p>Using energy efficiently means less unnecessary energy is consumed.</p></div>
+  </div>
+</section>
+
+<section id="solution" style="background:#eef8f2">
+  <h2>Our Solution: Smart Eco-School</h2>
+  <p class="section-intro">Our physical model demonstrates practical design choices that can help a school reduce heat gain and use energy more intelligently.</p>
+  <div class="features">
+    <div class="feature"><b>☀️ Reflective roof</b><br>Reflective surfaces can reduce solar heat absorbed by the roof.</div>
+    <div class="feature"><b>🌳 Shade & greenery</b><br>Trees and shaded areas can block direct sunlight around learning spaces.</div>
+    <div class="feature"><b>🪟 Shaded windows</b><br>External shading can reduce direct solar radiation entering rooms.</div>
+    <div class="feature"><b>🌬️ Natural ventilation</b><br>Well-placed openings can support airflow when outdoor conditions allow.</div>
+    <div class="feature"><b>💡 Daylight</b><br>Good window placement can make useful daylight available during the day.</div>
+    <div class="feature"><b>☀️ Solar energy</b><br>Solar panels can generate renewable electricity for suitable school loads.</div>
+  </div>
+</section>
+
+<section id="calculator">
+  <div class="calculator">
+    <h2>Impact Calculator</h2>
+    <p>Try a simple estimate of how reducing cooling demand could affect electricity use. This is an educational estimate, not an engineering or utility bill calculation.</p>
+    <div class="split">
+      <div>
+        <label>Current cooling electricity use (kWh/day)
+          <input id="kwh" type="number" min="0" value="500">
+        </label>
+        <label>Estimated reduction (%)
+          <input id="reduction" type="number" min="0" max="100" value="10">
+        </label>
+        <label>School days per month
+          <input id="days" type="number" min="1" max="31" value="22">
+        </label>
+        <button class="btn" onclick="calculate()">Calculate impact</button>
+      </div>
+      <div class="result" id="result">
+        <div>Potential daily saving</div>
+        <strong id="daily">50 kWh</strong>
+        <div style="margin-top:12px">Potential monthly saving</div>
+        <strong id="monthly">1,100 kWh</strong>
+        <p id="message">That is energy that would not need to be used for the estimated cooling demand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="action">
+  <h2>Take Action</h2>
+  <p class="section-intro">Students don't control the whole building — but small actions can still reduce unnecessary energy use and build better habits.</p>
+  <div class="cards">
+    <div class="card"><div class="action"><input type="checkbox"><div><b>Turn off lights</b><br>Switch off lights when a room is empty or daylight is enough.</div></div></div>
+    <div class="card"><div class="action"><input type="checkbox"><div><b>Keep doors closed</b><br>When cooling is operating, avoid leaving cooled spaces open unnecessarily.</div></div></div>
+    <div class="card"><div class="action"><input type="checkbox"><div><b>Use daylight</b><br>Make use of natural light when it provides enough visibility.</div></div></div>
+    <div class="card"><div class="action"><input type="checkbox"><div><b>Report waste</b><br>Tell a teacher or facilities team about lights, taps or equipment being left on unnecessarily.</div></div></div>
+    <div class="card"><div class="action"><input type="checkbox"><div><b>Protect green spaces</b><br>Care for trees and plants around the school.</div></div></div>
+    <div class="card"><div class="action"><input type="checkbox"><div><b>Start an Eco-Team</b><br>Work with classmates to track simple environmental improvements.</div></div></div>
+  </div>
+</section>
+
+
+<section id="games" style="background:#eef8f2">
+  <h2>Eco Games & Quizzes</h2>
+  <p class="section-intro">Learn, play and test your environmental knowledge. Every quiz answer teaches you something useful for your Eco-School.</p>
+
+  <div class="split">
+    <div class="panelbox">
+      <h3>🌍 Eco Quiz</h3>
+      <p id="quizQuestion">Loading question...</p>
+      <div id="quizAnswers" class="cards" style="grid-template-columns:1fr 1fr;margin-top:16px"></div>
+      <p id="quizFeedback" aria-live="polite" style="font-weight:700;margin-top:18px"></p>
+      <button class="btn" id="nextQuestion" type="button" style="display:none">Next question</button>
+      <p><b>Score:</b> <span id="quizScore">0</span>/<span id="quizTotal">0</span></p>
+    </div>
+
+    <div class="panelbox">
+      <h3>♻️ Eco Sort Challenge</h3>
+      <p>Choose the best category for each item. Can you get a perfect score?</p>
+      <div id="sortGame">
+        <div style="font-size:2rem;margin:15px 0" id="sortItem">🍌 Banana peel</div>
+        <div class="cards" style="grid-template-columns:1fr 1fr">
+          <button class="btn sortBtn" type="button" data-type="organic">🌱 Organic</button>
+          <button class="btn sortBtn" type="button" data-type="recycle">♻️ Recyclable</button>
+          <button class="btn sortBtn" type="button" data-type="general">🗑️ General waste</button>
+          <button class="btn sortBtn" type="button" data-type="reuse">🔁 Reuse</button>
+        </div>
+        <p id="sortFeedback" aria-live="polite" style="font-weight:700"></p>
+        <p><b>Score:</b> <span id="sortScore">0</span>/<span id="sortTotal">0</span></p>
+        <button class="btn" id="newSort" type="button">New item</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff7dc">
+  <h2>The Physical Model</h2>
+  <div class="split">
+    <div class="panelbox">
+      <h3>What judges can see</h3>
+      <p>A miniature UAE school made primarily from ordinary/recycled materials. The model shows how roof reflection, shading, ventilation, daylight, greenery and renewable energy can work together.</p>
+      <p><b>The model is the physical proof of the idea.</b> The website explains the problem, the actions and the potential impact.</p>
+    </div>
+    <div class="panelbox">
+      <h3>Project message</h3>
+      <p style="font-size:1.25rem"><b>“Don't only cool the school. Design it to stay cooler.”</b></p>
+      <p class="small">A concept for smarter energy use in UAE schools.</p>
+    </div>
+  </div>
+</section>
+
+
+<section id="founder">
+  <div class="founder">
+    <div class="founder-badge">S</div>
+    <h2>Founder of the Smart Eco-School Movement</h2>
+    <h3>Shourya Swarnkar</h3>
+    <p>Shourya Swarnkar is the student founder of the Smart Eco-School movement, a project created to show how UAE schools can become more environmentally responsible through simple, practical ideas.</p>
+    <p>The movement combines a physical school model with an interactive website. Its goal is to help students understand energy use, reduce unnecessary waste, and think about smarter school design.</p>
+    <p><b>Movement message:</b> Small ideas can create a smarter, cleaner school.</p>
+  </div>
+</section>
+
+<footer>
+  <b>SMART ECO-SCHOOL</b><br>
+  Student environmental innovation project<br><br>
+  <span class="small" style="color:#b9d5ca">Educational estimates are illustrative and should not be treated as measured school energy data.</span>
+</footer>
+
+<script>
+
+// --- Student sign-in ---
+const signinPage=document.getElementById("signinPage");
+const signinForm=document.getElementById("signinForm");
+const userWelcome=document.getElementById("userWelcome");
+function showStudent(name,studentClass,section){
+  userWelcome.textContent=`Welcome, ${name} — Class ${studentClass}, Section ${section}! 🌱`;
+  userWelcome.style.display="block";
+  signinPage.style.display="none";
+  document.body.classList.remove("locked");
+}
+const savedStudent=JSON.parse(localStorage.getItem("smartEcoStudent")||"null");
+if(savedStudent && savedStudent.name && savedStudent.studentClass && savedStudent.section){
+  showStudent(savedStudent.name,savedStudent.studentClass,savedStudent.section);
+}
+signinForm.addEventListener("submit",e=>{
+  e.preventDefault();
+  const student={
+    name:document.getElementById("studentName").value.trim(),
+    studentClass:document.getElementById("studentClass").value.trim(),
+    section:document.getElementById("studentSection").value.trim()
+  };
+  if(!student.name||!student.studentClass||!student.section) return;
+  localStorage.setItem("smartEcoStudent",JSON.stringify(student));
+  showStudent(student.name,student.studentClass,student.section);
+});
+
+function calculate(){
+  const kwh=Math.max(0,Number(document.getElementById('kwh').value)||0);
+  const reduction=Math.min(100,Math.max(0,Number(document.getElementById('reduction').value)||0));
+  const days=Math.max(1,Number(document.getElementById('days').value)||1);
+  const daily=kwh*reduction/100;
+  const monthly=daily*days;
+  document.getElementById('daily').textContent=daily.toLocaleString(undefined,{maximumFractionDigits:1})+" kWh";
+  document.getElementById('monthly').textContent=monthly.toLocaleString(undefined,{maximumFractionDigits:1})+" kWh";
+  document.getElementById('message').textContent=`At a ${reduction}% estimated reduction, the school could avoid about ${monthly.toLocaleString(undefined,{maximumFractionDigits:1})} kWh of cooling electricity use over ${days} school days.`;
+}
+
+// --- Eco Quiz ---
+const quizQuestions = [
+  {q:"Which roof can reflect more sunlight and reduce heat absorption?", a:["A dark, heat-absorbing roof","A reflective roof","A roof covered in paper","A roof with no surface"], c:1, e:"Reflective surfaces can reduce solar heat absorbed by the roof."},
+  {q:"Which action can reduce unnecessary electricity use in an empty classroom?", a:["Leave every light on","Turn off unnecessary lights","Open the refrigerator","Run the AC with the door open"], c:1, e:"Turning off unnecessary lights avoids wasting electricity."},
+  {q:"What can trees around a school provide?", a:["Shade","More plastic waste","More heat from sunlight","Extra electricity automatically"], c:0, e:"Trees can provide shade and help reduce direct solar heating around buildings."},
+  {q:"What is one benefit of using daylight?", a:["It can reduce the need for electric lighting","It always makes a room hotter","It uses more electricity","It removes all cooling needs"], c:0, e:"Useful daylight can reduce the need for electric lights."},
+  {q:"Which is a renewable energy source?", a:["Coal","Diesel","Sunlight","Natural gas"], c:2, e:"Solar energy comes from sunlight, which is renewable."},
+  {q:"Why is natural ventilation useful when outdoor conditions allow?", a:["It can support airflow","It creates plastic","It always increases electricity use","It blocks every window"], c:0, e:"Ventilation can help move air through a space when conditions are suitable."}
+];
+
+let quizIndex=0, quizScore=0, quizAnswered=false;
+const quizQuestion=document.getElementById("quizQuestion");
+const quizAnswers=document.getElementById("quizAnswers");
+const quizFeedback=document.getElementById("quizFeedback");
+const nextQuestion=document.getElementById("nextQuestion");
+const quizScoreEl=document.getElementById("quizScore");
+const quizTotal=document.getElementById("quizTotal");
+
+function renderQuiz(){
+  const item=quizQuestions[quizIndex];
+  quizQuestion.textContent=item.q;
+  quizAnswers.innerHTML="";
+  quizFeedback.textContent="";
+  nextQuestion.style.display="none";
+  quizAnswered=false;
+  item.a.forEach((answer,i)=>{
+    const b=document.createElement("button");
+    b.type="button";
+    b.className="btn";
+    b.textContent=answer;
+    b.style.marginTop="0";
+    b.addEventListener("click",()=>answerQuiz(i,b));
+    quizAnswers.appendChild(b);
+  });
+  quizTotal.textContent=quizQuestions.length;
+  quizScoreEl.textContent=quizScore;
+}
+function answerQuiz(i,button){
+  if(quizAnswered) return;
+  quizAnswered=true;
+  const item=quizQuestions[quizIndex];
+  if(i===item.c){
+    quizScore++;
+    quizFeedback.textContent="Correct! " + item.e;
+    quizFeedback.style.color="#167a52";
+  }else{
+    quizFeedback.textContent="Not quite. " + item.e;
+    quizFeedback.style.color="#8a4b00";
+  }
+  quizScoreEl.textContent=quizScore;
+  [...quizAnswers.children].forEach((b,n)=>b.disabled=true);
+  nextQuestion.style.display="inline-block";
+  nextQuestion.textContent=quizIndex===quizQuestions.length-1 ? "Play again" : "Next question";
+}
+nextQuestion.addEventListener("click",()=>{
+  if(quizIndex===quizQuestions.length-1){quizIndex=0;quizScore=0}
+  else quizIndex++;
+  renderQuiz();
+});
+renderQuiz();
+
+// --- Eco Sort Challenge ---
+const sortItems=[
+  {name:"🍌 Banana peel",type:"organic"},
+  {name:"🥫 Empty metal can",type:"recycle"},
+  {name:"📦 Clean cardboard box",type:"recycle"},
+  {name:"👕 Old T-shirt",type:"reuse"},
+  {name:"🍂 Dry leaves",type:"organic"},
+  {name:"🧴 Empty plastic bottle",type:"recycle"},
+  {name:"🪑 Old sturdy chair",type:"reuse"},
+  {name:"🧻 Used tissue",type:"general"}
+];
+let sortIndex=0,sortScore=0,sortTotal=0;
+const sortItem=document.getElementById("sortItem");
+const sortFeedback=document.getElementById("sortFeedback");
+const sortScoreEl=document.getElementById("sortScore");
+const sortTotalEl=document.getElementById("sortTotal");
+
+function renderSort(){
+  sortItem.textContent=sortItems[sortIndex].name;
+  sortFeedback.textContent="";
+  sortScoreEl.textContent=sortScore;
+  sortTotalEl.textContent=sortTotal;
+}
+document.querySelectorAll(".sortBtn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    sortTotal++;
+    const correct=btn.dataset.type===sortItems[sortIndex].type;
+    if(correct){
+      sortScore++;
+      sortFeedback.textContent="Correct! Great eco thinking.";
+    }else{
+      sortFeedback.textContent="Good try! The best category here is " + sortItems[sortIndex].type + ".";
+    }
+    sortScoreEl.textContent=sortScore;
+    sortTotalEl.textContent=sortTotal;
+    document.querySelectorAll(".sortBtn").forEach(b=>b.disabled=true);
+  });
+});
+document.getElementById("newSort").addEventListener("click",()=>{
+  sortIndex=(sortIndex+1)%sortItems.length;
+  document.querySelectorAll(".sortBtn").forEach(b=>b.disabled=false);
+  renderSort();
+});
+renderSort();
+</script>
+</body>
+</html>
